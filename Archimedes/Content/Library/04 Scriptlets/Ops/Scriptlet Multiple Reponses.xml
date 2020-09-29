@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="bf58966f-b2dd-40a5-a5ea-17c354c9be23">
+  <descriptionCdata><![CDATA[bf58966f-b2dd-40a5-a5ea-17c354c9be23.description=<pre>This is an operation that does nothing. It can be used to call scriptlets.\n\nInputs\:\nnone\n\nResponses\:\nsuccess - \nfailure\n</pre>
+]]></descriptionCdata>
+  <annotation>bf58966f-b2dd-40a5-a5ea-17c354c9be23.description</annotation>
+  <name>Scriptlet Multiple Reponses</name>
+  <categories/>
+  <inputs/>
+  <possibleResponses>
+    <opResponse id="3b39131d-8eca-4b11-a941-846026d95a69">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="87c1a93a-5eb2-4c1d-b88c-f10ccf05ab7a">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="7b2e1055-3c30-4bdf-b4fc-01047072a890">
+      <annotation></annotation>
+      <name>no action</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="78939de5-e980-4433-a6c7-3d257ade7434">
+      <annotation></annotation>
+      <name>diagnosed</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>DIAGNOSED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="cef8f22d-54bc-4b9b-b3ab-2d8ae2d856d6">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="42d61f6f-c448-4b0d-bbef-d706009d09ab">
+    <baseIcon>text_code_javascript.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+</operation>

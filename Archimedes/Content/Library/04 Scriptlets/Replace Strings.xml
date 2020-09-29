@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="238cb3d7-a159-4c4b-84be-3be13367fa99">
+  <descriptionCdata><![CDATA[238cb3d7-a159-4c4b-84be-3be13367fa99.076f85e6-5585-4e34-9369-90b904d95721.description=<pre>This is an operation that does nothing. It can be used to call scriptlets.\n\nInputs\:\nnone\n\nResponses\:\nsuccess - \nfailure\n</pre>
+238cb3d7-a159-4c4b-84be-3be13367fa99.83170423-7a9e-4d7d-a2d0-5ab5ea9d7a70.prompt=${newString}
+]]></descriptionCdata>
+  <annotation></annotation>
+  <name>Replace Strings</name>
+  <categories/>
+  <inputs/>
+  <possibleResponses>
+    <opResponse id="a033ba20-11f2-49e2-9e7c-40e5f2f15c77">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="8ea9a1d4-113c-4d39-8e72-70dc8467de41">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="1017dca9-3a5a-4d14-86ae-26717c4e67c3">
+    <annotation></annotation>
+    <name>FailureMessage</name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="fca77188-c0db-4ac4-95b0-4be02eac5daa">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>false</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="076f85e6-5585-4e34-9369-90b904d95721">
+      <annotation>238cb3d7-a159-4c4b-84be-3be13367fa99.076f85e6-5585-4e34-9369-90b904d95721.description</annotation>
+      <name>Replace String</name>
+      <bounds>
+        <x>28.0</x>
+        <y>29.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <scriptlet id="5ced95d3-6f44-46da-ae9c-3b371d0d1448">
+        <annotation></annotation>
+        <name>Step Replace String in Flow Replace Strings (076f85e6-5585-4e34-9369-90b904d95721)</name>
+        <script>/* This flow prompts for two inputs, input1 and replaceWith.
+When you run the flow, the value if input1 is replaced with
+the value of replaceWith. A new flow variable is created named
+newString, which is written to the global context and then 
+displayed in the Resolved step.
+*/
+
+newString = input1.replace(input1,replaceWith);
+scriptletContext.putGlobal(&quot;newString&quot;,newString);
+</script>
+        <type>NASHORN</type>
+      </scriptlet>
+      <bindings>
+        <userInputBinding id="7d5f5ed9-94bf-4dc5-a88e-ff40012fe861">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>input1</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt></prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="cfe9016a-c37f-486e-a8a7-4dd4df81e381">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>replaceWith</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt></prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+      </bindings>
+      <transitions>
+        <transition id="c82a926f-8679-4629-85df-664da9451539">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>83170423-7a9e-4d7d-a2d0-5ab5ea9d7a70</refId>
+          </destination>
+          <source>
+            <refId>076f85e6-5585-4e34-9369-90b904d95721</refId>
+          </source>
+          <positions>
+            <point>
+              <x>78.0</x>
+              <y>53.0</y>
+            </point>
+            <point>
+              <x>211.0</x>
+              <y>60.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="88a85e6d-0950-478b-bbe4-6d2cc24384ab">
+          <annotation></annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>125d48be-d547-4dad-859a-9c535a3c3c9f</refId>
+          </destination>
+          <source>
+            <refId>076f85e6-5585-4e34-9369-90b904d95721</refId>
+          </source>
+          <positions>
+            <point>
+              <x>78.0</x>
+              <y>53.0</y>
+            </point>
+            <point>
+              <x>204.0</x>
+              <y>167.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>87f9c766-31ff-471b-8852-e730d8ec41c7</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="83170423-7a9e-4d7d-a2d0-5ab5ea9d7a70">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>154.0</x>
+        <y>29.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>238cb3d7-a159-4c4b-84be-3be13367fa99.83170423-7a9e-4d7d-a2d0-5ab5ea9d7a70.prompt</userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="8894100a-4ae3-4921-b5ec-7b4b4ab962d1">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>83170423-7a9e-4d7d-a2d0-5ab5ea9d7a70</refId>
+          </destination>
+          <source>
+            <refId>83170423-7a9e-4d7d-a2d0-5ab5ea9d7a70</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="85e6a338-bfe7-4411-872c-85af9eefbdf2">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>New String</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="125d48be-d547-4dad-859a-9c535a3c3c9f">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>154.0</x>
+        <y>159.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="412ba7b8-dc2d-4f62-a762-0932f2d1bcc6">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>125d48be-d547-4dad-859a-9c535a3c3c9f</refId>
+          </destination>
+          <source>
+            <refId>125d48be-d547-4dad-859a-9c535a3c3c9f</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>076f85e6-5585-4e34-9369-90b904d95721</startSteps>
+</flow>

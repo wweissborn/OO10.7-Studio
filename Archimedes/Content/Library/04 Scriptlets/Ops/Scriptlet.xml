@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="87f9c766-31ff-471b-8852-e730d8ec41c7">
+  <descriptionCdata><![CDATA[87f9c766-31ff-471b-8852-e730d8ec41c7.description=<pre>This is an operation that does nothing. It can be used to call scriptlets.\n\nInputs\:\nNone\n\nResponses\:\nsuccess \nfailure \n</pre>\n
+]]></descriptionCdata>
+  <annotation>87f9c766-31ff-471b-8852-e730d8ec41c7.description</annotation>
+  <name>Scriptlet</name>
+  <categories/>
+  <inputs/>
+  <possibleResponses>
+    <opResponse id="794eda99-fe52-4b31-825e-d757594b80b2">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="021582a9-0523-4475-bac6-1e4354483b0b">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="756791bf-1df5-4d1d-98a6-528764e88e45">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="35441868-c4fe-4a2e-bfdc-132ff94ff3e5">
+    <baseIcon>text_code_javascript.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.8.0</version>
+    <actionName>noOp</actionName>
+  </plugin>
+  <fieldValues/>
+</operation>

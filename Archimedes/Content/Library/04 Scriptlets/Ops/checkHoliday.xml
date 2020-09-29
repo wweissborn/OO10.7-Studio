@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="0be46eb1-253b-4a06-856e-bd156cf8df62">
+  <descriptionCdata><![CDATA[0be46eb1-253b-4a06-856e-bd156cf8df62.description=<pre>\nThis operation does not do anything. It can be used to filter flow variables by defining them as inputs and filtering them in the Results tab.\n\nInputs\:\n    field1 \u2013 An optional input that can be used for filtering flow variables.\n    field2 \u2013 An optional input that can be used for filtering flow variables.\n    field3 \u2013 An optional input that can be used for filtering flow variables.\n    field4 \u2013 An optional input that can be used for filtering flow variables.\n\nResults\:\n    returnResult - This is the primary output. It contains the value of  "field1" as it was specified at input or when filtered. \n\nResponses\:\n    success - The operation completed as stated in the description.\n</pre>
+]]></descriptionCdata>
+  <annotation>0be46eb1-253b-4a06-856e-bd156cf8df62.description</annotation>
+  <name>checkHoliday</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="47aaa99a-873d-4c5e-a50d-6189844d3b04">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ICAL_FileName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="88032ecb-2946-449a-b453-8bcf281e9f06">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>dateFormat</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>ab474c53-0aee-4633-ae44-57609f8815f8</refId>
+        <refName>dateFormat</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="9d488ae7-db49-40f9-bcf5-eb5f0eb9aa51">
+      <annotation></annotation>
+      <name>Not Public Holiday</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="314a2873-a0a9-4d27-bf00-c3ce4dd84c59">
+          <annotation></annotation>
+          <name>Field_1</name>
+          <fieldName>Result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="8c377a43-8312-4927-8981-52dca19ad00f">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>TRUE</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>MATCH_AT_LEAST_ONE_WORD</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="42cf1832-0b33-4e88-9f18-1e77eccdc088">
+      <annotation></annotation>
+      <name>Public Holiday</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="a5a8e85b-13fa-434d-bd3d-52421f9747a8">
+          <annotation></annotation>
+          <name>Field_1</name>
+          <fieldName>Result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="d5d2e6e9-8c53-4a5c-a02e-5962bf225bc5">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>FALSE</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>MATCH_AT_LEAST_ONE_WORD</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="7f22041c-2bb7-41f1-bbe3-7fb838cc4cfc">
+      <annotation></annotation>
+      <name>Failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="4ef79eba-a242-40d9-820b-9926fb54d368">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="53b3c757-c8fc-4ccc-8fc4-3fad3bbb5520">
+    <baseIcon>display_report.png</baseIcon>
+    <basePath>Utilities/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

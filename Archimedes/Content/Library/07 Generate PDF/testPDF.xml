@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="316b0d79-7695-4f75-b848-6ad71c804410">
+  <descriptionCdata><![CDATA[316b0d79-7695-4f75-b848-6ad71c804410.21baf7ce-22c3-43c6-9101-4114ee25b13f.description=<pre>\nRuns a Groovy script either as is, or from a file. \n\nInputs\:\n    script - The Groovy script to run. \n    file - The full local path or UNC to the file containing the Groovy script. Examples of file extensions\: .txt, .groovy, .gy, .gvy\n\nResults\:\n    returnResult - This is the primary output. Contains either the object returned by the Groovy script converted to text, or an exception message if the script could not be ran.\n    displayOutput - The displayed output of the script. \n\nResponses\:\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully.\n\nNotes\:\n1. You can also use variables from OO in the Groovy script. In order to do this\:\n    1.1 Add to the operation or step an input having the name of the Groovy variable.\n    1.2 Use the variable in the Groovy script as if initialized in the script.\n    1.3 At runtime, the Groovy variable will have the string value of the OO variable.\n \nExample\:\n\nIf you add the following input to the step\:\n    param \= 4\n\nAnd you execute the following script\:\n    def newParam \= param + 1;\n    println newParam;\n    return param;\n\nThe results will be\:\nreturnResult\=4 \ndisplayOutput\=41 \nThis is because <newParam> will have the value of <param> concatenated with 1;\n\n2. In order to read the script from a file residing in a remote shared location, make sure that\:\n    2.1 The RAS and remote hosts are in the same domain.\n    2.2 The domain user under which runs the RAS, needs to have read permissions on the file contained in the shared location. \n</pre>
+]]></descriptionCdata>
+  <annotation></annotation>
+  <name>testPDF</name>
+  <categories/>
+  <inputs/>
+  <possibleResponses>
+    <opResponse id="c3359842-12f1-4187-816c-893ad21a60d9">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="bef93858-b5a8-48c2-b494-796edaab376c">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="d47bc876-3fb8-40b5-a014-8aac937b76e5">
+    <annotation></annotation>
+    <name>FailureMessage</name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="51d00d8e-0526-4eba-9b64-92bc75aecb94">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>false</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="21baf7ce-22c3-43c6-9101-4114ee25b13f">
+      <annotation>316b0d79-7695-4f75-b848-6ad71c804410.21baf7ce-22c3-43c6-9101-4114ee25b13f.description</annotation>
+      <name>Groovy Script</name>
+      <bounds>
+        <x>151.0</x>
+        <y>195.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="6b2c8446-cbc6-4671-8e26-5eb1c93d95e2">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>script</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>def classLoader = ClassLoader.systemClassLoader
+
+while (classLoader.parent) {
+
+classLoader = classLoader.parent
+
+}
+
+def newClassLoader = new URLClassLoader([new File(&quot;/c:/lib/itextpdf-5.5.9.jar&quot;).toString().toURL()] as URL[], classLoader)
+
+def printClassPath(classLoader) {
+  println &quot;$classLoader&quot;
+  classLoader.getURLs().each {url-&gt;
+     println &quot;- ${url.toString()}&quot;
+  }
+  if (classLoader.parent) {
+     printClassPath(classLoader.parent)
+  }
+}
+printClassPath this.class.classLoader</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="41282934-c4fc-4df0-a54e-904d77660d6a">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>file</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="1ea16de4-4949-40c0-a682-70d2135da25f">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>26a73cfe-bdd4-4d84-a59d-3b2425ff7398</refId>
+          </destination>
+          <source>
+            <refId>21baf7ce-22c3-43c6-9101-4114ee25b13f</refId>
+          </source>
+          <positions>
+            <point>
+              <x>201.0</x>
+              <y>229.0</y>
+            </point>
+            <point>
+              <x>395.0</x>
+              <y>230.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="5fa9dbfc-ebe7-48f4-90f2-f554182a6222">
+          <annotation></annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>fc1448fb-2297-42ad-bebb-4165cc6e0191</refId>
+          </destination>
+          <source>
+            <refId>21baf7ce-22c3-43c6-9101-4114ee25b13f</refId>
+          </source>
+          <positions>
+            <point>
+              <x>201.0</x>
+              <y>229.0</y>
+            </point>
+            <point>
+              <x>189.0</x>
+              <y>379.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>d568797c-f81c-45ee-addf-dad3482587a6</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="fc1448fb-2297-42ad-bebb-4165cc6e0191">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>153.0</x>
+        <y>348.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="55821b4a-7aee-44d0-9640-1aaaac6f0101">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>fc1448fb-2297-42ad-bebb-4165cc6e0191</refId>
+          </destination>
+          <source>
+            <refId>fc1448fb-2297-42ad-bebb-4165cc6e0191</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="26a73cfe-bdd4-4d84-a59d-3b2425ff7398">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>345.0</x>
+        <y>196.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="692436be-f05f-44b3-8be7-a4da451da05f">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>26a73cfe-bdd4-4d84-a59d-3b2425ff7398</refId>
+          </destination>
+          <source>
+            <refId>26a73cfe-bdd4-4d84-a59d-3b2425ff7398</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>21baf7ce-22c3-43c6-9101-4114ee25b13f</startSteps>
+</flow>

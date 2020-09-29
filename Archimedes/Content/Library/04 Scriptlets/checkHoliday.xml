@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="e0c54879-8e56-4d03-947b-abd46c9cab05">
+  <descriptionCdata><![CDATA[e0c54879-8e56-4d03-947b-abd46c9cab05.10aa5b1c-ede0-4f0e-9aa9-320eb1cdf00c.description=<pre>\nThis operation does not do anything. It can be used to filter flow variables by defining them as inputs and filtering them in the Results tab.\n\nInputs\:\n    field1 \u2013 An optional input that can be used for filtering flow variables.\n    field2 \u2013 An optional input that can be used for filtering flow variables.\n    field3 \u2013 An optional input that can be used for filtering flow variables.\n    field4 \u2013 An optional input that can be used for filtering flow variables.\n\nResults\:\n    returnResult - This is the primary output. It contains the value of  "field1" as it was specified at input or when filtered. \n\nResponses\:\n    success - The operation completed as stated in the description.\n</pre>
+]]></descriptionCdata>
+  <annotation></annotation>
+  <name>checkHoliday</name>
+  <categories/>
+  <inputs/>
+  <possibleResponses>
+    <opResponse id="61d77e9a-3559-4000-b8b9-9e6186368556">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="33757f9f-d96b-43a9-a1a6-ed31b8638542">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="faf17118-481f-4805-b4cd-ee8d6e88c2c3">
+      <annotation></annotation>
+      <name>unknown</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="0ea49cab-65b8-46e6-b021-3fbe43bd9b4c">
+    <annotation></annotation>
+    <name>FailureMessage</name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="ab4a2593-dfe3-4401-836a-24cd0ab33c8b">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>false</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="10aa5b1c-ede0-4f0e-9aa9-320eb1cdf00c">
+      <annotation>e0c54879-8e56-4d03-947b-abd46c9cab05.10aa5b1c-ede0-4f0e-9aa9-320eb1cdf00c.description</annotation>
+      <name>checkHoliday</name>
+      <bounds>
+        <x>43.0</x>
+        <y>61.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <scriptlet id="0a2ba88c-f269-43d3-9af5-5e9cde91588c">
+        <annotation></annotation>
+        <name>Step checkHoliday in Flow checkHoliday (10aa5b1c-ede0-4f0e-9aa9-320eb1cdf00c)</name>
+        <script>// This script gets the current day and then finds out if it is a public holiday
+// The public holiday list is an iCalendar file on the HPOO server passed by the flow variable ICAL_FileName
+// dateFormat is the format of the date in the iCal
+
+scriptletResponse = &quot;failure&quot;; // Assume failure
+try
+{
+                var holidays=new java.util.ArrayList(); // create array list for holidays and populate it
+                icalfile=scriptletContext.get(&quot;ICAL_FileName&quot;); // get ICAL_FileName from the operation
+                dateformat=scriptletContext.get(&quot;dateFormat&quot;); // get date format
+                
+                // read file into memory
+                s = new java.util.Scanner(new java.io.File(icalfile));
+                while (s.hasNext())
+                {
+                                holidays.add(s.next());
+                }
+                s.close();
+
+                var today = new java.util.Date(); // Get the date
+                
+                formatter = new java.text.SimpleDateFormat(dateformat); // reformat the date to ical format
+                currentday=formatter.format(today);
+
+                var thisDate = &quot;&quot;+currentday
+                var dayofweek = today.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday
+
+                
+                // Check if thisDate appears in the holiday array
+                if (holidays.indexOf(&quot;DTSTART;VALUE=DATE:&quot;+thisDate)==-1)
+                {
+                                scriptletResult=&quot;TRUE&quot;; // Today is not a public holiday
+                                scriptletResponse = &quot;success&quot;;
+                                scriptletContext.putGlobal(&quot;CurrentDay&quot;,thisDate);
+                }
+                else
+                {
+                                scriptletResult=&quot;FALSE&quot;; // Today is a public holiday
+                                scriptletResponse = &quot;success&quot;;
+                                scriptletContext.putGlobal(&quot;CurrentDay&quot;,thisDate);
+                }
+
+}
+catch (e)
+{
+                scriptletResponse = &quot;failure&quot;; // Script failed
+                scriptletResult = &quot;&quot;+e;
+}
+</script>
+        <type>NASHORN</type>
+      </scriptlet>
+      <bindings>
+        <userInputBinding id="78c988b6-07ee-43d1-b25c-79f9a5c75715">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>dateFormat</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt></prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <link>
+            <refId>ab474c53-0aee-4633-ae44-57609f8815f8</refId>
+            <refName>dateFormat</refName>
+          </link>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <staticBinding id="93802e23-1c3e-4281-815d-d4065f1851f2">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>ICAL_FileName</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>C:/temp/Holidays.ics</value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="d9a15cf4-1426-4999-afb2-d2861e82e080">
+          <annotation></annotation>
+          <name>Not Public Holiday</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>Not Public Holiday</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>49dcf917-66a2-413c-9c8a-e6a649a1cd70</refId>
+          </destination>
+          <source>
+            <refId>10aa5b1c-ede0-4f0e-9aa9-320eb1cdf00c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>93.0</x>
+              <y>95.0</y>
+            </point>
+            <point>
+              <x>274.0</x>
+              <y>91.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="54df0a41-5f59-4700-8fdc-45f19adedbc3">
+          <annotation></annotation>
+          <name>Public Holiday</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>Public Holiday</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>a94a59cb-2071-4d02-b80c-c2cde88559ac</refId>
+          </destination>
+          <source>
+            <refId>10aa5b1c-ede0-4f0e-9aa9-320eb1cdf00c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>93.0</x>
+              <y>95.0</y>
+            </point>
+            <point>
+              <x>268.0</x>
+              <y>202.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="40337698-faa6-49f0-b2f0-fc171e434f8f">
+          <annotation></annotation>
+          <name>Failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>Failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>75aedf61-ea7d-4942-b284-157a4952f1a4</refId>
+          </destination>
+          <source>
+            <refId>10aa5b1c-ede0-4f0e-9aa9-320eb1cdf00c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>93.0</x>
+              <y>95.0</y>
+            </point>
+            <point>
+              <x>103.0</x>
+              <y>204.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>0be46eb1-253b-4a06-856e-bd156cf8df62</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="49dcf917-66a2-413c-9c8a-e6a649a1cd70">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>218.0</x>
+        <y>61.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="2a4a177d-771a-41c2-8431-9b81e70a9482">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>49dcf917-66a2-413c-9c8a-e6a649a1cd70</refId>
+          </destination>
+          <source>
+            <refId>49dcf917-66a2-413c-9c8a-e6a649a1cd70</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="75aedf61-ea7d-4942-b284-157a4952f1a4">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>43.0</x>
+        <y>191.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="b7be9464-6612-42b7-9e93-42d7a29ca34b">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>75aedf61-ea7d-4942-b284-157a4952f1a4</refId>
+          </destination>
+          <source>
+            <refId>75aedf61-ea7d-4942-b284-157a4952f1a4</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="a94a59cb-2071-4d02-b80c-c2cde88559ac">
+      <annotation></annotation>
+      <name>No Action Taken : unknown</name>
+      <bounds>
+        <x>218.0</x>
+        <y>191.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>true</recordRawOutput>
+      <recordPrimaryOutput>true</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="be152676-9ea4-4f7d-8f4e-d2eaf1b54e24">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>unknown</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>a94a59cb-2071-4d02-b80c-c2cde88559ac</refId>
+          </destination>
+          <source>
+            <refId>a94a59cb-2071-4d02-b80c-c2cde88559ac</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>NO_ACTION_TAKEN</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>10aa5b1c-ede0-4f0e-9aa9-320eb1cdf00c</startSteps>
+</flow>

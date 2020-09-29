@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="edf8cd84-d5fb-4a7a-9e2c-2c09b578fdf5">
+  <descriptionCdata><![CDATA[edf8cd84-d5fb-4a7a-9e2c-2c09b578fdf5.description=<pre>This is an operation that does nothing. It can be used for filtering flow variables by feeding them in as inputs and filtering them on the results tab.\n\nInputs\:\nfield1 - optional input that can be used for filtering flow variables.\nfield2 - optional input that can be used for filtering flow variables.\nfield3 - optional input that can be used for filtering flow variables.\nfield4 - optional input that can be used for filtering flow variables.\n\nResponses\:\nsuccess - this operation never fails.\n</pre>
+]]></descriptionCdata>
+  <annotation>edf8cd84-d5fb-4a7a-9e2c-2c09b578fdf5.description</annotation>
+  <name>Select Network</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="f9410db3-d20f-498e-94e5-17101ba43e61">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_1</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="e8d56ca7-c5af-4b6a-94d9-603cf10b3d7e">
+      <annotation></annotation>
+      <name>192 Network</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>DIAGNOSED</type>
+      <matchRules>
+        <expression id="a538e9fa-0caf-4ccc-87f4-8016a9fd95f6">
+          <annotation></annotation>
+          <name>Field_1</name>
+          <fieldName>Field_1</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <scriptletEvaluator id="ec102ef4-a6db-4d68-b3f0-e18901235a0b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <scriptlet id="c100ab9a-f960-4460-b202-3b3a800c3583">
+              <annotation></annotation>
+              <name>EvaluatorScriptlet</name>
+              <script>if(scriptletInput.length &gt;0) {
+	if (scriptletInput.substring(0,3) == &quot;192&quot;) (matchRanges.setMatches(true));
+}
+matchRanges.addRange(0,scriptletInput.length);</script>
+              <type>NASHORN</type>
+            </scriptlet>
+          </scriptletEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="975e5092-7b4a-43f5-ab95-94d932faf636">
+      <annotation></annotation>
+      <name>172 Network</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>DIAGNOSED</type>
+      <matchRules>
+        <expression id="0999de72-247d-435a-a673-11f36a8ffdcd">
+          <annotation></annotation>
+          <name>Field_1</name>
+          <fieldName>Field_1</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <scriptletEvaluator id="289703f2-c0ad-44ce-9e94-a439f32013f2">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <scriptlet id="b5bf510a-a913-486f-92bc-cd023a8ef074">
+              <annotation></annotation>
+              <name>EvaluatorScriptlet</name>
+              <script>if(scriptletInput.length &gt;0) {
+	if (scriptletInput.substring(0,3) == &quot;172&quot;) (matchRanges.setMatches(true));
+}
+matchRanges.addRange(0,scriptletInput.length);</script>
+              <type>RHINO</type>
+            </scriptlet>
+          </scriptletEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="bbf35633-f6c1-411e-9e2f-2cdb55dd34f3">
+      <annotation></annotation>
+      <name>Other Network</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="be05faf4-027f-4195-a895-c1bbd166aaac">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Field_1</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="e8575528-9498-44f2-9c84-4116ad275cfb">
+    <baseIcon>branch_element.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+</operation>
